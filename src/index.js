@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom/client';
 import React, { useState, useEffect } from 'react';
-import { useLocation, HashRouter, Routes, Route, Link } from 'react-router-dom';
+import { useLocation, HashRouter, Routes, Route, Link, json } from 'react-router-dom';
 import Posts from './Posts'
 import Post from './Post'
 
@@ -20,6 +20,8 @@ const App = ()=> {
   // https://strangers-things.herokuapp.com/api/2209-FTB-WEB-PT_AM/posts
 
   const [posts, setPosts] = useState([]);
+  const [userName, setUsername] = ('')
+  const [password, setPassword] = ('')
 
   useEffect (()=> { 
     fetch ("https://strangers-things.herokuapp.com/api/2209-FTB-WEB-PT_AM/posts")
@@ -35,6 +37,7 @@ const App = ()=> {
         <Link to='/'>Home</Link>
         <Link to='/posts'>Posts ({posts.length})</Link>
       </nav>
+
       <Routes>
         <Route path="/posts/:id" element= {
           <Post posts={posts} />
@@ -43,7 +46,19 @@ const App = ()=> {
         <Route path ="/posts" element= { 
           <Posts posts = {posts} />} 
         />
-        <Route path='/' element= { <div>Home</div>}/>
+        <Route path='/' element= { 
+          <form>
+            <input 
+              placeholder="username">
+            </input>
+            <input placeholder="password">
+            </input>
+            <span>
+              <button>Register</button>
+              <button>Login</button>
+            </span>
+          </form>
+        }/>
       </Routes> 
     </div>
   );

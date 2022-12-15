@@ -1,3 +1,28 @@
 body {
   font-family: verdana;
 }
+
+nav {
+  display: flex;
+  justify-content: space-around;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+form > * {
+  margin: 0.5px;
+}
+
+button {
+  height: 2rem;
+  width: 25%;
+}
+
+input {
+  height: 2rem;
+  width: 50%;
+}
