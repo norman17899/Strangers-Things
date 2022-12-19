@@ -4,6 +4,7 @@ import { useLocation, HashRouter, Routes, Route, Link, json } from 'react-router
 import Posts from './Posts'
 import Post from './Post'
 import Login from './Login'
+import Register from './Register';
 
 // const Nav = (props) => {
 //   const posts = props.posts;
@@ -21,8 +22,6 @@ const App = ()=> {
   // https://strangers-things.herokuapp.com/api/2209-FTB-WEB-PT_AM/posts
 
   const [posts, setPosts] = useState([]);
-  const [registerUsername, setRegisterUsername] = useState('')
-  const [registerPassword, setRegisterPassword] = useState('')
   const [user, setUser] = useState('')
 
   useEffect (()=> { 
@@ -51,30 +50,6 @@ const App = ()=> {
     }
   }
 
-  const register = (ev) => {
-    ev.preventDefault();
-    fetch ("https://strangers-things.herokuapp.com/api/2209-FTB-ET-WEB-AM/users/register", {
-      method: "POST",
-      headers: {
-        'Content-Type': 'applicaiton/json'
-      },
-      body: JSON.stringify ({
-        user: {
-          username: registerUsername,
-          password: registerPassword
-        }
-      })
-    })
-    .then (response => response.json())
-    .then (result => {
-      if (!result.success) {
-        throw result.error
-      }
-      console.log(result);
-    })
-    .catch (error => console.log(error))
-  }
-
   const logout = () => {
     window.localStorage.removeItem('token');
     setUser({});
@@ -89,24 +64,12 @@ const App = ()=> {
         <Link to='/posts'>Posts ({posts.length})</Link>
       </nav>
       {
-        user._id ? <div>Welcome {user.username} <button onClick={logout}>Logout</button></div> : null
+        user._id ? <div>Welcome { user.username } <button onClick={ logout }>Logout</button></div> : null
       }
       {
         !user._id ? (
           <div id="homeForm">
-            <form onSubmit = { register }>
-              <input 
-                placeholder="username"
-                value={registerUsername}
-                onChange = {ev => setRegisterUsername(ev.target.value)}
-              />
-              <input 
-                placeholder="password"
-                value={registerPassword}
-                onChange = {ev => setRegisterPassword(ev.target.value)}
-                />
-                <button>Register</button>
-            </form>
+            <Register />
             <Login exchangeTokenForUser= { exchangeTokenForUser } />
           </div>) : null
       }
@@ -123,5 +86,6 @@ const App = ()=> {
     </div>
   );
 };
+
 const root = ReactDOM.createRoot(document.querySelector('#root'));
 root.render(<HashRouter><App /></HashRouter>);
