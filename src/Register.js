@@ -30,11 +30,6 @@ const Register = ()=> {
     .catch( err => console.log(err));
   }
 
-  const logout = () => {
-    window.localStorage.removeItem('token');
-    setUser({});
-  }
-
   return (
     <form onSubmit = { register }>
         <input 
