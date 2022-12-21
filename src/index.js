@@ -27,6 +27,7 @@ const App = ()=> {
   const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [location, setLocation] = useState('');
+  const [token, setToken] = useState(null)
 
 
   useEffect (()=> { 
@@ -35,10 +36,11 @@ const App = ()=> {
       .then (json => setPosts(json.data.posts))
 
     exchangeTokenForUser();
-  },[])
+  },[posts])
 
   const exchangeTokenForUser = () => {
     const token = window.localStorage.getItem('token');
+    setToken(token);
     if (token) {
       fetch ('https://strangers-things.herokuapp.com/api/2209-FTB-ET-WEB-AM/users/me',{
         headers: {
@@ -57,6 +59,7 @@ const App = ()=> {
 
   const logout = () => {
     window.localStorage.removeItem('token');
+    setToken(null)
     setUser({});
   }
 
@@ -82,7 +85,15 @@ const App = ()=> {
           console.log(result);
         })
         .catch(error => console.log(error));
+        clearForm();
       }
+  }
+
+  const clearForm = () => {
+    setTitle('')
+    setDescription('')
+    setLocation('')
+    setPrice('')
   }
 
   return (
@@ -136,7 +147,7 @@ const App = ()=> {
         }
         />
         <Route path ="/posts" element= { 
-          <Posts posts = {posts} />} 
+          <Posts posts = {posts} user={user} token={token} />} 
         />
         <Route path='/' element= {<div>Home</div>}/>
       </Routes> 

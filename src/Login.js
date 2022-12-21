@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 
 const Login = (props)=> {
-    
+
     const exchangeTokenForUser = props.exchangeTokenForUser
     const [loginUsername, setLoginUsername] = useState('')
     const [loginPassword, setLoginPassword] = useState('')
@@ -17,8 +17,8 @@ const Login = (props)=> {
         },
         body: JSON.stringify ({
             user: {
-            username: loginUsername,
-            password: loginPassword
+                username: loginUsername,
+                password: loginPassword
             }
         })
         })

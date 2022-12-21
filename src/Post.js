@@ -10,13 +10,13 @@ const Post = (props) => {
   if (!post) {
     return null;
   }
-
+  
   return (
     <div>
       <h1><Link to={'/posts'}>{ post.title }</Link></h1>
       <p>{post.description}</p>
-      <p>{post.location} </p>
-      <p> {post.price}</p>
+      <p>{post.location}</p>
+      <p>{post.price}</p>
     </div>
   )
 }
