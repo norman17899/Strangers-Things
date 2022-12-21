@@ -19,13 +19,18 @@ import Register from './Register';
 // }
 
 const App = ()=> {
-  // https://strangers-things.herokuapp.com/api/2209-FTB-WEB-PT_AM/posts
+  // https://strangers-things.herokuapp.com/api/2209-FTB-ET-WEB-AM/posts
 
   const [posts, setPosts] = useState([]);
-  const [user, setUser] = useState('')
+  const [user, setUser] = useState('');
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [price, setPrice] = useState('');
+  const [location, setLocation] = useState('');
+
 
   useEffect (()=> { 
-    fetch ("https://strangers-things.herokuapp.com/api/2209-FTB-WEB-PT_AM/posts")
+    fetch ("https://strangers-things.herokuapp.com/api/2209-FTB-ET-WEB-AM/posts")
       .then (response => response.json())
       .then (json => setPosts(json.data.posts))
 
@@ -55,6 +60,31 @@ const App = ()=> {
     setUser({});
   }
 
+  const createPost = () => {
+    const token = window.localStorage.getItem('token');
+    if (token) {
+      fetch('https://strangers-things.herokuapp.com/api/2209-FTB-ET-WEB-AM/posts', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${ token }`
+      },
+        body: JSON.stringify({
+          post: {
+            title: title,
+            description: description,
+            price: price,
+            location: location
+            }
+        })
+      }).then(response => response.json())
+        .then(result => {
+          console.log(result);
+        })
+        .catch(error => console.log(error));
+      }
+  }
+
   return (
     <div>
       {/*<Nav posts={posts}/>*/}
@@ -72,6 +102,33 @@ const App = ()=> {
             <Register />
             <Login exchangeTokenForUser= { exchangeTokenForUser } />
           </div>) : null
+      }
+      {
+        user._id ? (
+          <form onSubmit={ createPost }>
+            <input 
+            placeholder="Title"
+            value={title}
+            onChange = {ev => setTitle(ev.target.value)}
+            />
+            <input 
+            placeholder="Description"
+            value={description}
+            onChange = {ev => setDescription(ev.target.value)}
+            />
+            <input 
+            placeholder="Price"
+            value={price}
+            onChange = {ev => setPrice(ev.target.value)}
+            />
+            <input 
+            placeholder="Location"
+            value={location}
+            onChange = {ev => setLocation(ev.target.value)}
+            />
+            <button>Create Post</button>
+        </form>
+        ) : null
       }
       <Routes>
         <Route path="/posts/:id" element= {

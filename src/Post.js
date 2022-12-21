@@ -1,10 +1,12 @@
 import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 
-const Post = (props) => {
+const Post = (props) => { 
+
   const posts = props.posts;
   const id = useParams().id;
   const post = posts.find(post => post._id === id)
+
   if (!post) {
     return null;
   }
