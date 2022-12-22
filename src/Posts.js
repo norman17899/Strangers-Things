@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { deletePost } from './api';
 
 const Posts = (props) => {
 
@@ -11,23 +12,10 @@ const Posts = (props) => {
       <ul>
         {
           posts.map(post => {
-            const deletePost =() => {
-              fetch(`https://strangers-things.herokuapp.com/api/2209-FTB-ET-WEB-AM/posts/${post._id}`, {
-                method: "DELETE",
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${token}`
-              }
-              }).then(response => response.json())
-                .then(result => {
-                  console.log(result);
-                })
-                .catch(console.error);
-            }
             return (
               <li key ={ post._id }>
                 <Link to={`/posts/${post._id}`}>{post.title}</Link>
-                { user._id === post.author._id ? (<button onClick={deletePost} id='deleteButton'>Delete</button>) : null}
+                { user._id === post.author._id ? (<button onClick={() => deletePost(post._id, token)} id='deleteButton'>Delete</button>) : null}
               </li>
             )
           })
