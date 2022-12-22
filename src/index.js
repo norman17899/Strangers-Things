@@ -5,6 +5,7 @@ import Posts from './Posts'
 import Post from './Post'
 import Login from './Login'
 import Register from './Register';
+import NewPost from './NewPost'
 
 // const Nav = (props) => {
 //   const posts = props.posts;
@@ -23,10 +24,6 @@ const App = ()=> {
 
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState('');
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [price, setPrice] = useState('');
-  const [location, setLocation] = useState('');
   const [token, setToken] = useState(null)
 
 
@@ -63,39 +60,6 @@ const App = ()=> {
     setUser({});
   }
 
-  const createPost = () => {
-    const token = window.localStorage.getItem('token');
-    if (token) {
-      fetch('https://strangers-things.herokuapp.com/api/2209-FTB-ET-WEB-AM/posts', {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${ token }`
-      },
-        body: JSON.stringify({
-          post: {
-            title: title,
-            description: description,
-            price: price,
-            location: !location ? 'Location on Request' : location
-            }
-        })
-      }).then(response => response.json())
-        .then(result => {
-          console.log(result);
-        })
-        .catch(error => console.log(error));
-        clearForm();
-      }
-  }
-
-  const clearForm = () => {
-    setTitle('')
-    setDescription('')
-    setLocation('')
-    setPrice('')
-  }
-
   return (
     <div>
       {/*<Nav posts={posts}/>*/}
@@ -112,34 +76,7 @@ const App = ()=> {
           <div id="homeForm">
             <Register />
             <Login exchangeTokenForUser= { exchangeTokenForUser } />
-          </div>) : null
-      }
-      {
-        user._id ? (
-          <form onSubmit={ createPost }>
-            <input 
-            placeholder="Title"
-            value={title}
-            onChange = {ev => setTitle(ev.target.value)}
-            />
-            <input 
-            placeholder="Description"
-            value={description}
-            onChange = {ev => setDescription(ev.target.value)}
-            />
-            <input 
-            placeholder="Price"
-            value={price}
-            onChange = {ev => setPrice(ev.target.value)}
-            />
-            <input 
-            placeholder="Location"
-            value={location}
-            onChange = {ev => setLocation(ev.target.value)}
-            />
-            <button>Create Post</button>
-        </form>
-        ) : null
+          </div>) : <NewPost />
       }
       <Routes>
         <Route path="/posts/:id" element= {
