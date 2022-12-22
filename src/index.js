@@ -77,7 +77,7 @@ const App = ()=> {
             title: title,
             description: description,
             price: price,
-            location: location
+            location: !location ? 'Location on Request' : location
             }
         })
       }).then(response => response.json())

@@ -5,6 +5,13 @@ body {
 nav {
   display: flex;
   justify-content: space-around;
+  background-color: grey;
+  font-size: 1.5rem;
+  font-family: 'Times New Roman', Times, serif;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  padding-bottom: 10px;
+  padding-top: 10px;
 }
 
 #homeForm {
@@ -25,6 +32,12 @@ form > * {
 
 button {
   height: 2rem;
+  background-color: aquamarine;
+}
+
+#deleteButton {
+  background-color: red;
+  margin-left: 0.5rem;
 }
 
 input {

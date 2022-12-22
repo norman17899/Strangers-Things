@@ -27,7 +27,7 @@ const Posts = (props) => {
             return (
               <li key ={ post._id }>
                 <Link to={`/posts/${post._id}`}>{post.title}</Link>
-                { user._id === post.author._id ? (<button onClick={deletePost}>Delete</button>) : null}
+                { user._id === post.author._id ? (<button onClick={deletePost} id='deleteButton'>Delete</button>) : null}
               </li>
             )
           })
