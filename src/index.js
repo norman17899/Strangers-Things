@@ -80,7 +80,7 @@ const App = ()=> {
       }
       <Routes>
         <Route path="/posts/:id" element= {
-          <Post posts={posts} />
+          <Post posts={posts} user={user} token={token}/>
         }
         />
         <Route path ="/posts" element= { 
