@@ -26,7 +26,6 @@ const App = ()=> {
   const [user, setUser] = useState('');
   const [token, setToken] = useState(null)
 
-
   useEffect (()=> { 
     fetch ("https://strangers-things.herokuapp.com/api/2209-FTB-ET-WEB-AM/posts")
       .then (response => response.json())
@@ -80,7 +79,7 @@ const App = ()=> {
       }
       <Routes>
         <Route path="/posts/:id" element= {
-          <Post posts={posts} user={user} token={token}/>
+          <Post posts={posts} user={user} token={token} />
         }
         />
         <Route path ="/posts" element= { 
