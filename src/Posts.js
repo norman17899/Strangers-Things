@@ -5,7 +5,7 @@ import { deletePost } from './api';
 const Posts = (props) => {
 
   const {posts, user, token} = props;
-
+  console.log(posts)
   return (
     <div>
       <h1>Posts</h1>

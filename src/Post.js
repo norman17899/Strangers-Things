@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useParams, Link } from 'react-router-dom';
-import SendMessages from './SendMessage';
+import Messages from './Messages';
 
 const Post = (props) => { 
 
-  const {posts, token, user } = props
+  const {posts, token } = props
   const id = useParams().id;
   const post = posts.find(post => post._id === id)
 
   if (!post) {
     return null;
   }
-
   return (
     <div>
       <div>
@@ -21,7 +20,7 @@ const Post = (props) => {
         <p><span className="postHeaders">Location: </span>{post.location}</p>
       </div>
       <div>
-        <SendMessages post={post} token={token}/>
+        <Messages token={token} post={post}/>
       </div>
     </div>
   )

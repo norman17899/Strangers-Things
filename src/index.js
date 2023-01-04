@@ -6,6 +6,7 @@ import Post from './Post'
 import Login from './Login'
 import Register from './Register';
 import NewPost from './NewPost'
+import Messages from './Messages';
 
 // const Nav = (props) => {
 //   const posts = props.posts;
@@ -31,8 +32,8 @@ const App = ()=> {
       .then (response => response.json())
       .then (json => setPosts(json.data.posts))
 
-    exchangeTokenForUser();
-  },[posts])
+      exchangeTokenForUser();
+  },[])
 
   const exchangeTokenForUser = () => {
     const token = window.localStorage.getItem('token');
@@ -78,6 +79,9 @@ const App = ()=> {
           </div>) : <NewPost />
       }
       <Routes>
+        <Route path="/post/:id/messages" element= {
+          <Messages />
+        } />
         <Route path="/posts/:id" element= {
           <Post posts={posts} user={user} token={token} />
         }

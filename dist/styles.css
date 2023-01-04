@@ -57,3 +57,9 @@ input {
 .postHeaders {
   font-weight: bold;
 }
+
+#preview {
+  border: 1px solid black;
+  padding: 1rem;
+  width: 50%;
+}
